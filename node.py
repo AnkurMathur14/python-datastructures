@@ -15,7 +15,7 @@ class Node:
         return "Node(data, pnext)"
 
     def __str__(self):
-        return "{} {}".format(self.data, self.pnext)
+        return "{} {}".format(self.data, self.next)
 
 
 class TreeNode(Node):
