@@ -24,12 +24,12 @@ class TreeNode(Node):
     """
     def __init__(self, data, pleft=None, pright=None):
         self.data = data
-        self.pleft = pleft
-        self.pright = pright
+        self.left = pleft
+        self.right = pright
 
     def __repr__(self):
-        return "TreeNode(data, pleft, pright)"
+        return "TreeNode(data, left, right)"
 
     def __str__(self):
-        return "{} {}".format(self.data, self.pleft, self.pright)
+        return "{} {}".format(self.data, self.left, self.right)
 
