@@ -18,6 +18,22 @@ class Node:
         return "{} {}".format(self.data, self.next)
 
 
+class DoublyNode:
+    """
+    Class for a doubly list node
+    """
+    def __init__(self, data, pnext=None, pprev=None):
+        self.data = data
+        self.next = pnext
+        self.prev = pprev
+
+    def __repr__(self):
+        return "DoublyNode(data, pnext, pprev)"
+
+    def __str__(self):
+        return "{} {}".format(self.data, self.next, self.prev)
+
+
 class TreeNode(Node):
     """
     Class for a tree node

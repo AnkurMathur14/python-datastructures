@@ -266,7 +266,11 @@ class SinglyList:
             print("Given value does not exists.")
         return None
 
-    def reversed(self):
+    def reverse(self):
+        """
+        Method to reverse the list
+        :return: None
+        """
         if self.empty():
             return None
 
