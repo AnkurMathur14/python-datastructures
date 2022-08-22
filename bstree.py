@@ -1,5 +1,5 @@
 """
-Binary tree implemntation
+Binary search tree implementation
 """
 
 from node import TreeNode
@@ -89,19 +89,70 @@ class BSTree:
             result.append(temp)
         return result
 
+    def print_left_view(self):
+        if self.empty():
+            return None
+        q = Queue()
+        q.push(self.root)
+        while not q.empty():
+            n = q.size()
+            for i in range(n):
+                curr = q.pop()
+                if i == 0:
+                    print(curr.data)
+                if curr.left:
+                    q.push(curr.left)
+                if curr.right:
+                    q.push(curr.right)
+
+    def print_right_view(self):
+        if self.empty():
+            return None
+        q = Queue()
+        q.push(self.root)
+        while not q.empty():
+            n = q.size()
+            for i in range(n):
+                curr = q.pop()
+                if i == 0:
+                    print(curr.data)
+                if curr.right:
+                    q.push(curr.right)
+                if curr.left:
+                    q.push(curr.left)
+
+    def print_levels(self):
+        if self.empty():
+            return None
+        q = Queue()
+        q.push(self.root)
+        level = 0
+        while not q.empty():
+            n = q.size()
+            print("Level {}: ".format(level), end=" ")
+            for i in range(n):
+                curr = q.pop()
+                print(curr.data, end=" ")
+                if curr.left:
+                    q.push(curr.left)
+                if curr.right:
+                    q.push(curr.right)
+            level += 1
+            print()
+
     @staticmethod
-    def __print_kth_level(node, k):
+    def __print_at_kth_level(node, k):
         if not node:
             return None
-
-        if k == 1:
+        if k == 0:
             print(node.data, end=" ")
-        BSTree.__print_kth_level(node.left, k-1)
-        BSTree.__print_kth_level(node.right, k-1)
+        BSTree.__print_at_kth_level(node.left, k - 1)
+        BSTree.__print_at_kth_level(node.right, k - 1)
 
-    def print_kth_level(self, k):
-        BSTree.__print_kth_level(self.root, k)
-        print()
+    def print_at_kth_level(self, k):
+        print("Level {}: ".format(k), end=" ")
+        BSTree.__print_at_kth_level(self.root, k)
+
 
     @staticmethod
     def __insert_recursive(node, value):
@@ -124,7 +175,7 @@ class BSTree:
             return None
 
         curr = self.root
-        while True:
+        while curr:
             if value < curr.data:
                 if not curr.left:
                     curr.left = new_node
@@ -288,3 +339,14 @@ class BSTree:
 
     def height(self):
         return BSTree.__height(self.root)
+
+    @staticmethod
+    def __invert_tree(node):
+        if not node:
+            return None
+        node.left, node.right = node.right, node.left
+        BSTree.__invert_tree(node.left)
+        BSTree.__invert_tree(node.right)
+
+    def invert_tree(self):
+        BSTree.__invert_tree(self.root)
