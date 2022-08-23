@@ -283,5 +283,83 @@ class DoublyList:
             pcurr = pnext
         self.head = pprev
 
+    @staticmethod
+    def __mid_node(node):
+        if not node:
+            return None
+
+        slow = node
+        fast = node
+
+        while fast.next and fast.next.next:
+            fast = fast.next.next
+            slow = slow.next
+        return slow
+
+    def mid_node(self):
+        return DoublyList.__mid_node(self.head)
+
+    @staticmethod
+    def __merge_two_lists(list1, list2):
+        if not (list1 or list2):
+            return None
+        if list1 and not list2:
+            return list1
+        if list2 and not list1:
+            return list2
+
+        head = None
+        if list1.data < list2.data:
+            head = list1
+            list1 = list1.next
+        else:
+            head = list2
+            list2 = list2.next
+
+        curr = head
+
+        while list1 and list2:
+            if list1.data < list2.data:
+                curr.next = list1
+                list1 = list1.next
+            else:
+                curr.next = list2
+                list2 = list2.next
+            curr = curr.next
+
+        if list1:
+            curr.next = list1
+        if list2:
+            curr.next = list2
+        return head
+
+    @staticmethod
+    def __merge_sort(node):
+        # If empty or single node
+        if not node or not node.next:
+            return node
+
+        mid = DoublyList.__mid_node(node)
+        right_half = mid.next
+        mid.next = None
+        left_half = node
+
+        left = DoublyList.__merge_sort(left_half)
+        right = DoublyList.__merge_sort(right_half)
+        sorted_list = DoublyList.__merge_two_lists(left, right)
+        return sorted_list
+
     def sort(self):
-        pass
+        self.head = DoublyList.__merge_sort(self.head)
+
+    @staticmethod
+    def __search(node, value):
+        if not node:
+            return False
+        if node.data == value:
+            return True
+        return DoublyList.__search(node.next, value)
+
+    def search(self, value):
+        return DoublyList.__search(self.head, value)
+

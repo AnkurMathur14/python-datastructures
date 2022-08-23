@@ -286,7 +286,7 @@ class SinglyList:
         self.head = pprev
 
     @staticmethod
-    def merge_two_lists(list1, list2):
+    def __merge_two_lists(list1, list2):
         """
         Method too merge two list into one sorted list
         :param list1: First list
@@ -329,7 +329,7 @@ class SinglyList:
         return head
 
     @staticmethod
-    def mid_node(node):
+    def __mid_node(node):
         if not node:
             return node
 
@@ -342,22 +342,22 @@ class SinglyList:
         return slow
 
     @staticmethod
-    def merge_sort(node):
+    def __merge_sort(node):
 
         # If there is less than 2 nodes
         if not node or not node.next:
             return node
 
-        mid = SinglyList.mid_node(node)
+        mid = SinglyList.__mid_node(node)
         right_half = mid.next
         mid.next = None
         left_half = node
 
-        left = SinglyList.merge_sort(left_half)
-        right = SinglyList.merge_sort(right_half)
+        left = SinglyList.__merge_sort(left_half)
+        right = SinglyList.__merge_sort(right_half)
 
-        sorted_list = SinglyList.merge_two_lists(left, right)
+        sorted_list = SinglyList.__merge_two_lists(left, right)
         return sorted_list
 
     def sort(self):
-        self.head = SinglyList.merge_sort(self.head)
+        self.head = SinglyList.__merge_sort(self.head)
