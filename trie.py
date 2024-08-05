@@ -2,7 +2,13 @@
 Trie data structure implementation.
 Trie is also known as suffix tree or digital tree.
 Trie is used to store and search english words very efficiently.
-Search complexity: O(k) where k is the length of the word
+Search complexity: O(l) where l is the length of the word
+
+The complexity of creating a trie is O(n*l), where n is the number of words, and l is an average length of the word:
+you need to perform l lookups on the average for each of the n words in the set.
+
+Same goes for looking up words later: you perform l steps for each of the n words.
+
 """
 
 from node import TrieNode
@@ -26,6 +32,7 @@ class Trie:
     def create_trie(self, word):
         self.insert(word)
 
+    # T : O(word_length)
     def insert(self, word):
         curr = self.root
         for ch in word:
@@ -34,6 +41,7 @@ class Trie:
             curr = curr.children[ord(ch) - ord('A')]
         curr.is_terminated = True
 
+    # T : O(word_length)
     def search(self, word):
         curr = self.root
         for ch in word:
