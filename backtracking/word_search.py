@@ -1,4 +1,6 @@
 """
+79. Word Search
+
 Given an m x n grid of characters board and a string word, return true if word exists in the grid.
 
 The word can be constructed from letters of sequentially adjacent cells,
@@ -46,7 +48,12 @@ def word_search_1(board, word):
 
 
 def main():
-    board = [["o", "a", "a", "n"], ["e", "t", "a", "e"], ["i", "h", "k", "r"], ["i", "f", "l", "v"]]
+    board = [
+        ["o", "a", "a", "n"],
+        ["e", "t", "a", "e"],
+        ["i", "h", "k", "r"],
+        ["i", "f", "l", "v"]
+    ]
     print(word_search_1(board, "oath"))
     return True
 

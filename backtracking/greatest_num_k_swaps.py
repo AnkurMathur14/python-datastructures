@@ -45,7 +45,6 @@ def _largest_num_with_k_swaps(str, k, start, result):
 
             # Swap
             str = list(str)
-
             str[start], str[i] = str[i], str[start]
             str = "".join(str)
 

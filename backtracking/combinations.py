@@ -1,5 +1,7 @@
 """
-Find subsets of size k
+77. Combinations
+
+Find all subsets of size k
 
 Given two integers n and k, return all possible combinations of k numbers chosen from the range [1, n].
 
@@ -31,29 +33,47 @@ T: O(nCr) = O(nCk)
 """
 
 
-def _combinations(start, nums, k, result, current_set):
+def _combinations(start, n, k, result, current_set):
     if k == 0:
         result.append(list(current_set))
         return
+    if start > n:
+        return
 
-    for i in range(start, len(nums)):
-        current_set.append(nums[i])
-        _combinations(i + 1, nums, k - 1, result, current_set)
+    for i in range(start, n+1):
+        current_set.append(i)
+        _combinations(i + 1, n, k - 1, result, current_set)
         current_set.pop()
 
 
+def _combinations2(start, n, k, result, current_set):
+    if k == 0:
+        result.append(list(current_set))
+        return
+    if start > n:
+        return
+
+    # take the current element
+    current_set.append(start)
+    _combinations(start + 1, n, k - 1, result, current_set)
+    current_set.pop()
+
+    # dont take
+    _combinations(start + 1, n, k, result, current_set)
+
+
 def combinations(n, k):
-    start = 0
+    start = 1
     result = []
     current_set = []
-    nums = [i for i in range(1, n + 1)]
-    _combinations(start, nums, k, result, current_set)
+    _combinations2(start, n, k, result, current_set)
     return result
 
 
 def main():
-    print(combinations(4, 2))
-    print(combinations(4, 3))
+    print(combinations(4, 1))       # [[1], [2], [3], [4]]
+    print(combinations(4, 2))       # [[1, 2], [1, 3], [1, 4], [2, 3], [2, 4], [3, 4]]
+    print(combinations(4, 3))       # [[1, 2, 3], [1, 2, 4], [1, 3, 4], [2, 3, 4]]
 
 
 if __name__ == '__main__':
